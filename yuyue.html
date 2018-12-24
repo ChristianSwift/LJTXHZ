@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>立即预约</title>
+    <meta charset="utf-8">
+    <style>
+                * {
+            margin: 0;
+            padding: 0;
+        }
+        #main {
+            position: absolute;
+            width: 100%; height: 100%;
+            text-align: center;
+            font-family: 'Raleway', serif;
+        }
+        form {
+            position: absolute;
+            width: 60vw; height: 60vh;
+            left: calc(50% - 30vw); top: calc(60% - 45vh);
+            box-shadow: 0 0 15px #eee;
+        }
+        .label {
+            position: absolute;
+            width: 30%; height: 100%;
+            left: 0; top: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .label div {
+            position: relative;
+            width: 100%; height: 25%;
+            font-size: 5vmin;
+            font-weight: bold;
+            line-height: 15vh;
+        }
+        .button {
+            position: absolute;
+            width: 20vw; height: 7vh;
+            left: calc(50% - 10vw); bottom: -10vh;
+            cursor: pointer;
+            font-size: 2vw;
+            border: 3px solid #eee;
+            transition: background-color .5s ease, color .5s ease;
+        }
+        .button:hover {
+            background-color: #929aab;
+            color: white;
+        }
+        .input {
+            position: absolute;
+            width: 70%; height: 100%;
+            right: 3vmin; top: 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .input input {
+            position: relative;
+            width: 100%; height: 15%;
+            font-size: 3vmin;
+            font-weight: bold;
+            line-height: 15vh;
+        }
+    </style>
+</head>
+<body>
+    <div id='main'>
+            <form action="." class="form-box" method="GET" id="form1">
+                <div class="label">
+                    <div>姓名</div>
+                    <div>电话</div>
+                    <div>微信</div>
+                </div>
+                <div class="input">
+                    <input type="text" name="contactName" placeholder="请输入姓名">
+                    <input type="text" name="telephone" placeholder="请输入电话号">
+                    <input type="text" name="wechats" placeholder="请输入微信号">
+                </div>
+                <button class="button" type="submit" id="sub1">
+                    <div>提交</div>
+                </button>
+                <input type="hidden" name="submitted" id="submitted" value="true" />
+            </form>
+        </div>
+</body>
+</html>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#sub1").click(function () {
+            $.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "./function/yuyue.php",//url
+                data: $('#form1').serialize(),
+                success: function (data) {
+                    alert(data.a);
+                },
+                error: function (date) {
+                    alert(data.a);
+                }
+            })
+            $("#sub1").attr('disabled', 'disabled');
+            $("#sub1").css("background-color","gray");
+            setTimeout(function () {
+
+
+                $("#sub1").removeAttr("disabled");
+                $("#sub1").css("background-color","red");
+
+            }, 6000);
+        })
+    })
+</script>
+</body>
+</html>
